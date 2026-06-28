@@ -1,0 +1,6 @@
+.env
+.env.*
+!.env.example
+index.html
+mailer.js
+README.md

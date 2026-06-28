@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JetPro Media — Influencer-First Creative Agency</title>
+<meta name="description" content="JetPro Media connects premium brands with high-conversion audiences through a network of elite creators. We engineer the journey from scroll to shop." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 54'><path d='M24 5 27 18 44 31 27 28 27 35 33 42 26 39 24 44 22 39 15 42 21 35 21 28 4 31 21 18Z' fill='%23ff5c2e'/></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#0b0b0d;
+    --paper-2:#161519;
+    --ink:#f3f1ea;
+    --ink-soft:#97969d;
+    --faint:#65646b;
+    --line:rgba(255,255,255,.13);
+    --line-soft:rgba(255,255,255,.07);
+    --pink:#ff5c2e;
+    --pink-ink:#d8441c;
+
+    --display:'Archivo',system-ui,sans-serif;
+    --mono:'Space Mono',ui-monospace,monospace;
+    --body:'Inter',system-ui,sans-serif;
+
+    --maxw:1180px;
+    --pad:clamp(20px,5vw,68px);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--pink);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  :focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:3px}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--ink-soft);display:inline-flex;align-items:center;gap:11px;
+  }
+  .eyebrow .tick{width:15px;height:17px;color:var(--pink);flex:none}
+
+  h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.025em;line-height:.96}
+  .ghost{color:transparent;-webkit-text-stroke:1.3px var(--ink)}
+  .pink{color:var(--pink)}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px var(--pad);
+    transition:background .35s ease,border-color .35s ease,padding .35s ease;
+    border-bottom:1px solid transparent;
+  }
+  .nav.scrolled{
+    background:rgba(11,11,13,.78);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line-soft);
+    padding-top:13px;padding-bottom:13px;
+  }
+  .brand{font-family:var(--display);font-weight:900;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+  .brand .jet{width:21px;height:24px;color:var(--ink);transform:rotate(34deg);transform-origin:50% 50%;flex:none;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+  .brand:hover .jet{transform:rotate(34deg) translate(2px,-2px)}
+  .nav-links{display:flex;gap:34px;align-items:center}
+  .nav-links a{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#cbcad0;transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{
+    font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    padding:12px 22px;border-radius:100px;border:1px solid var(--ink);
+    color:var(--paper);background:var(--ink);cursor:pointer;display:inline-block;
+    transition:transform .25s,box-shadow .25s,background .25s,color .25s;white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px -12px rgba(255,255,255,.25)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--ink);box-shadow:none}
+  .btn-pink{background:var(--pink);border-color:var(--pink);color:#10000a;font-weight:700}
+  .btn-pink:hover{box-shadow:0 14px 30px -12px rgba(255,92,46,.7)}
+  .nav-toggle{display:none;background:none;border:0;color:var(--ink);font-size:26px;cursor:pointer;line-height:1}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100svh;position:relative;display:flex;flex-direction:column;justify-content:center;
+    padding-top:130px;padding-bottom:54px;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 80% -10%,rgba(120,150,255,.14),transparent 60%),
+      radial-gradient(90% 60% at 0% 110%,rgba(255,92,46,.12),transparent 60%);
+  }
+  .sky{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .hero .wrap{position:relative;z-index:3}
+  .hero-eyebrow{margin-bottom:30px}
+  .hero h1{
+    font-size:clamp(62px,16.5vw,236px);font-weight:900;letter-spacing:-.045em;
+  }
+  .hero h1 .line{display:block;overflow:hidden}
+  .hero h1 .line span{display:block;transform:translateY(110%);transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
+  .loaded .hero h1 .line span{transform:translateY(0)}
+  .hero h1 .line:nth-child(2) span{transition-delay:.09s}
+  .hero-sub{
+    max-width:520px;margin-top:32px;font-size:clamp(16px,1.9vw,20px);color:var(--ink-soft);line-height:1.55;
+    opacity:0;transform:translateY(18px);transition:all .85s ease .5s;
+  }
+  .loaded .hero-sub{opacity:1;transform:none}
+  .hero-cta{display:flex;gap:13px;flex-wrap:wrap;margin-top:36px;opacity:0;transform:translateY(18px);transition:all .85s ease .65s}
+  .loaded .hero-cta{opacity:1;transform:none}
+  .hero-stats{
+    display:flex;gap:clamp(22px,4vw,52px);flex-wrap:wrap;margin-top:56px;align-items:baseline;
+    opacity:0;transform:translateY(18px);transition:all .85s ease .8s;
+  }
+  .loaded .hero-stats{opacity:1;transform:none}
+  .hero-stats .hs .v{font-family:var(--display);font-weight:900;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.03em;line-height:1}
+  .hero-stats .hs .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+
+  .scrollcue{
+    position:absolute;bottom:26px;left:var(--pad);font-family:var(--mono);font-size:11px;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--faint);z-index:3;
+    display:flex;align-items:center;gap:12px;opacity:0;transition:opacity 1s ease 1s;
+  }
+  .loaded .scrollcue{opacity:1}
+  .scrollcue .bar{width:1px;height:32px;background:linear-gradient(var(--pink),transparent);position:relative;overflow:hidden}
+  .scrollcue .bar::after{content:"";position:absolute;top:0;left:0;width:100%;height:11px;background:var(--pink);animation:drop 1.9s ease-in-out infinite}
+  @keyframes drop{0%{transform:translateY(-11px)}60%,100%{transform:translateY(32px)}}
+
+  /* ---------- MOVING JETS ---------- */
+  .flyer{position:absolute;left:0;display:flex;align-items:center;gap:0;will-change:transform}
+  .flyer .trail{
+    height:2px;border-radius:2px;
+    background:repeating-linear-gradient(90deg,var(--pink) 0 7px,transparent 7px 15px);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 70%);
+            mask-image:linear-gradient(90deg,transparent,#000 70%);
+    opacity:.55;
+  }
+  .flyer .pj{color:var(--ink);transform:rotate(90deg);flex:none}
+  .f1{top:24%;animation:flyR 26s linear infinite}
+  .f1 .trail{width:130px}.f1 .pj{width:20px;height:22px}
+  .f2{top:40%;animation:flyR 36s linear infinite;animation-delay:-8s;opacity:.85}
+  .f2 .trail{width:95px}.f2 .pj{width:15px;height:17px}
+  .f3{top:62%;animation:flyR 21s linear infinite;animation-delay:-14s}
+  .f3 .trail{width:160px}.f3 .pj{width:25px;height:28px}
+  .f4{top:78%;animation:flyR 44s linear infinite;animation-delay:-30s;opacity:.7}
+  .f4 .trail{width:80px}.f4 .pj{width:13px;height:15px}
+  .fL{right:0;left:auto;top:33%;flex-direction:row-reverse;animation:flyL 32s linear infinite;animation-delay:-6s;opacity:.8}
+  .fL .pj{transform:rotate(-90deg)}
+  .fL .trail{width:110px;background:repeating-linear-gradient(90deg,transparent 0 8px,var(--pink) 8px 15px);
+    -webkit-mask-image:linear-gradient(90deg,#000 30%,transparent);mask-image:linear-gradient(90deg,#000 30%,transparent)}
+  .fL .pj{width:17px;height:19px}
+
+  @keyframes flyR{from{transform:translateX(-220px)}to{transform:translateX(calc(100vw + 220px))}}
+  @keyframes flyL{from{transform:translateX(220px)}to{transform:translateX(calc(-100vw - 220px))}}
+
+  /* ---------- SECTION SHELL ---------- */
+  .section{padding:clamp(88px,12vw,168px) 0;position:relative}
+  .sec-head{margin-bottom:62px;max-width:820px}
+  .sec-head .eyebrow{margin-bottom:22px}
+  .sec-head h2{font-size:clamp(38px,7vw,92px)}
+  .sec-head p{color:var(--ink-soft);font-size:clamp(15px,1.6vw,18px);max-width:560px;margin-top:24px}
+
+  .rule{height:1px;background:var(--line);max-width:var(--maxw);margin:0 auto}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .85s ease,transform .85s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+  /* ---------- WORK ---------- */
+  .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .case{
+    background:var(--paper-2);border:1px solid var(--line);border-radius:22px;
+    padding:clamp(28px,3.4vw,46px);display:flex;flex-direction:column;gap:16px;
+    min-height:300px;position:relative;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s,background .4s;
+  }
+  .case:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.26);background:#1b1a20}
+  .case .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+  .case .idx{font-family:var(--mono);font-size:13px;color:var(--pink);letter-spacing:.08em}
+  .case .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .case h3{font-size:clamp(27px,3.3vw,40px);font-weight:800;line-height:1.02}
+  .case p{color:var(--ink-soft);font-size:15px;line-height:1.6}
+  .case .metrics{display:flex;gap:32px;margin-top:auto;padding-top:20px;border-top:1px solid var(--line-soft);flex-wrap:wrap}
+  .case .metrics .m .v{font-family:var(--display);font-weight:900;font-size:28px;letter-spacing:-.02em}
+  .case .metrics .m .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{padding:40px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
+  .marquee-label{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:26px}
+  .track{display:flex;gap:60px;width:max-content;animation:scroll 28s linear infinite}
+  .marquee:hover .track{animation-play-state:paused}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .track .logo{font-family:var(--display);font-weight:800;font-size:clamp(24px,3.2vw,38px);color:var(--faint);letter-spacing:-.02em;white-space:nowrap;transition:color .3s}
+  .track .logo:hover{color:var(--ink)}
+  .track .logo .sup{font-family:var(--mono);font-size:11px;vertical-align:super;color:var(--pink);margin-left:4px;letter-spacing:0}
+
+  /* ---------- SERVICES ---------- */
+  .svc{border-top:1px solid var(--line)}
+  .svc-row{
+    display:grid;grid-template-columns:84px 1fr 1.1fr;gap:28px;align-items:baseline;
+    padding:34px 4px;border-bottom:1px solid var(--line);position:relative;transition:padding-left .35s;
+  }
+  .svc-row:hover{padding-left:18px}
+  .svc-row .num{font-family:var(--mono);font-size:14px;color:var(--pink);letter-spacing:.05em}
+  .svc-row h3{font-size:clamp(24px,3vw,38px);font-weight:800;letter-spacing:-.02em}
+  .svc-row p{color:var(--ink-soft);font-size:15.5px;line-height:1.55}
+  .svc-row .arrow{position:absolute;right:4px;top:50%;transform:translateY(-50%) translateX(-10px);opacity:0;color:var(--pink);font-size:22px;transition:all .35s}
+  .svc-row:hover .arrow{opacity:1;transform:translateY(-50%) translateX(0)}
+
+  /* ---------- PROCESS / FUNNEL ---------- */
+  .funnel{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:22px;overflow:hidden}
+  .stage{
+    display:grid;grid-template-columns:64px 1fr auto;gap:24px;align-items:center;
+    padding:30px clamp(20px,3vw,38px);border-bottom:1px solid var(--line);position:relative;
+    transition:background .3s;background:var(--paper-2);
+  }
+  .stage:last-child{border-bottom:0}
+  .stage:hover{background:#1d1c22}
+  .stage .step{font-family:var(--mono);font-size:13px;color:var(--pink)}
+  .stage .st-title{font-family:var(--display);font-weight:800;font-size:clamp(22px,3vw,34px);letter-spacing:-.02em}
+  .stage .st-desc{color:var(--ink-soft);font-size:14.5px;text-align:right;max-width:300px}
+  .stage::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;background:var(--pink);transition:width .3s}
+  .stage:nth-child(1)::after{width:25%}
+  .stage:nth-child(2)::after{width:50%}
+  .stage:nth-child(3)::after{width:75%}
+  .stage:nth-child(4)::after{width:100%}
+  .funnel-foot{margin-top:30px;font-family:var(--display);font-weight:700;font-size:clamp(17px,2.2vw,24px);letter-spacing:-.01em;color:var(--ink)}
+  .funnel-foot span{color:var(--pink)}
+
+  /* ---------- ABOUT ---------- */
+  .about{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px,7vw,90px);align-items:start}
+  .about-copy p{color:var(--ink-soft);font-size:clamp(16px,1.8vw,19px);line-height:1.65;margin-top:22px;max-width:480px}
+  .values{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+  .val{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);align-items:start}
+  .val .vn{font-family:var(--mono);font-size:13px;color:var(--pink)}
+  .val h4{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.01em;margin-bottom:6px}
+  .val p{color:var(--ink-soft);font-size:14.5px;line-height:1.55}
+
+  /* ---------- CONTACT ---------- */
+  .contact{padding:clamp(88px,12vw,168px) 0}
+  .pass{
+    max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 280px;
+    background:linear-gradient(135deg,#1a1920,#121116);border:1px solid var(--line);
+    color:var(--ink);border-radius:24px;overflow:hidden;position:relative;
+  }
+  .pass-main{padding:clamp(34px,5vw,58px)}
+  .pass-top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px dashed rgba(255,255,255,.2);padding-bottom:18px;margin-bottom:30px;gap:16px;flex-wrap:wrap}
+  .pass-top .tk{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+  .pass-top .tk b{color:var(--pink);font-weight:700}
+  .pass-main h2{font-size:clamp(42px,7vw,84px);font-weight:900;letter-spacing:-.035em;line-height:.92;color:var(--ink)}
+  .pass-main h2 em{font-style:normal;color:var(--pink)}
+  .route{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px;margin:30px 0}
+  .route .pt .city{font-family:var(--display);font-weight:800;font-size:19px;color:var(--ink)}
+  .route .pt .subc{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+  .route .pt.to{text-align:right}
+  .route .plane{color:var(--pink);font-size:20px}
+  .pass-meta{display:flex;gap:34px;flex-wrap:wrap;margin-bottom:28px}
+  .pass-meta .mi .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .pass-meta .mi .v{font-family:var(--display);font-weight:700;font-size:15px;margin-top:5px;color:var(--ink)}
+  .pass-meta .mi .v a:hover{color:var(--pink)}
+  .pass-stub{
+    background:repeating-linear-gradient(45deg,#1a1a1f,#1a1a1f 12px,#16161b 12px,#16161b 24px);
+    border-left:1px dashed rgba(255,255,255,.2);display:flex;flex-direction:column;justify-content:space-between;
+    padding:40px 30px;position:relative;
+  }
+  .pass-stub::before,.pass-stub::after{content:"";position:absolute;left:-11px;width:22px;height:22px;border-radius:50%;background:var(--paper)}
+  .pass-stub::before{top:-11px}.pass-stub::after{bottom:-11px}
+  .pass-stub .slab{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .pass-stub .gate{font-family:var(--display);font-weight:900;font-size:36px;letter-spacing:-.02em;margin-top:6px;color:var(--ink)}
+  .pass-stub .services{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .pass-stub .services span{font-family:var(--mono);font-size:12px;color:var(--ink);letter-spacing:.04em}
+  .pass-stub .services span i{color:var(--pink);font-style:normal}
+
+  /* ---------- CONTACT FORM ---------- */
+  .cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .cf-field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+  .cf-field label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .cf-field input,.cf-field select,.cf-field textarea{
+    background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:10px;
+    color:var(--ink);font-family:var(--body);font-size:14px;padding:11px 14px;
+    outline:none;transition:border-color .2s,background .2s;resize:none;width:100%;
+    -webkit-appearance:none;
+  }
+  .cf-field input::placeholder,.cf-field textarea::placeholder{color:var(--faint)}
+  .cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{
+    border-color:var(--pink);background:rgba(255,255,255,.09);
+  }
+  .cf-field select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2365646b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px}
+  .cf-field select option{background:#1a1920;color:var(--ink)}
+  #cf-status{font-family:var(--mono);font-size:12px;letter-spacing:.04em;margin-bottom:12px;min-height:16px;line-height:1.5}
+  #cf-status.ok{color:#4cde82}
+  #cf-status.err{color:#ff6b4a}
+  #cf-submit:disabled{opacity:.55;cursor:not-allowed;pointer-events:none}
+  .cf-honeypot{position:absolute;left:-9999px;opacity:0;pointer-events:none;tabindex:-1}
+
+  /* ---------- FOOTER ---------- */
+  .footer{border-top:1px solid var(--line);padding:44px 0}
+  .footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .footer .brand{font-size:17px}
+  .footer .meta{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--faint);text-align:right;line-height:1.7}
+  .footer .meta a:hover{color:var(--ink)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .nav-toggle{display:block}
+    .work-grid{grid-template-columns:1fr}
+    .svc-row{grid-template-columns:54px 1fr;gap:8px 18px}
+    .svc-row p{grid-column:2}
+    .stage{grid-template-columns:48px 1fr}
+    .stage .st-desc{display:none}
+    .about{grid-template-columns:1fr;gap:48px}
+    .pass{grid-template-columns:1fr}
+    .pass-stub{border-left:0;border-top:1px dashed rgba(255,255,255,.2);flex-direction:row;align-items:center;justify-content:space-between}
+    .pass-stub::before{top:-11px;left:auto;right:30px}
+    .pass-stub::after{display:none}
+    .cf-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:520px){
+    .route{grid-template-columns:1fr}
+    .route .pt.to{text-align:left}
+    .route .plane{transform:rotate(90deg)}
+    .pass-stub{flex-direction:column;align-items:flex-start;gap:24px}
+    .hero-stats{gap:20px 28px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .hero h1 .line span{transform:none}
+    .reveal{opacity:1;transform:none}
+    .hero-sub,.hero-cta,.hero-stats,.scrollcue{opacity:1;transform:none}
+    .flyer{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- JET GLYPH SPRITE -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="jet" viewBox="0 0 48 54">
+    <path d="M24 5 27 18 44 31 27 28 27 35 33 42 26 39 24 44 22 39 15 42 21 35 21 28 4 31 21 18Z"
+      fill="currentColor" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#top" class="brand" aria-label="JetPro Media, home">
+    <svg class="jet" viewBox="0 0 48 54" aria-hidden="true"><use href="#jet"/></svg>JetPro
+  </a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="btn btn-pink">Let's Talk</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Go to contact">≡</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="sky" aria-hidden="true">
+    <div class="flyer f1"><span class="trail"></span><svg class="pj" viewBox="0 0 48 54"><use href="#jet"/></svg></div>
+    <div class="flyer f2"><span class="trail"></span><svg class="pj" viewBox="0 0 48 54"><use href="#jet"/></svg></div>
+    <div class="flyer f3"><span class="trail"></span><svg class="pj" viewBox="0 0 48 54"><use href="#jet"/></svg></div>
+    <div class="flyer f4"><span class="trail"></span><svg class="pj" viewBox="0 0 48 54"><use href="#jet"/></svg></div>
+    <div class="flyer fL"><span class="trail"></span><svg class="pj" viewBox="0 0 48 54"><use href="#jet"/></svg></div>
+  </div>
+
+  <div class="wrap">
+    <span class="eyebrow hero-eyebrow"><svg class="tick" viewBox="0 0 48 54" aria-hidden="true"><use href="#jet"/></svg>Influencer-First Creative Agency</span>
+    <h1>
+      <span class="line"><span>JETPRO</span></span>
+      <span class="line"><span>MEDIA<span class="pink">.</span></span></span>
+    </h1>
+    <p class="hero-sub">We connect premium brands with high-conversion audiences through a network of elite creators — engineering the whole journey from scroll to shop.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn">Start a campaign</a>
+      <a href="#work" class="btn btn-ghost">See the work</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="v">10,000+</div><div class="k">Vetted creators</div></div>
+      <div class="hs"><div class="v">200+</div><div class="k">Concurrent campaigns</div></div>
+      <div class="hs"><div class="v">4.2×</div><div class="k">Average ROI</div></div>
+      <div class="hs"><div class="v">Pan-India</div><div class="k">Coverage</div></div>
+    </div>
+  </div>
+  <div class="scrollcue"><span class="bar"></span>Scroll to launch</div>
+</header>
+
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><svg class="tick" viewBox="0 0 48 54" aria-hidden="true"><use href="#jet"/></svg>Selected Work</span>
+      <h2>Work that<br>converts.</h2>
+      <p>From festive-season storytelling to overnight launch sprints — here's what execution looks like in the field.</p>
+    </div>
+
+    <div class="work-grid reveal">
+      <article class="case">
+        <div class="top"><span class="idx">01</span><span class="tag">Tech · Festive</span></div>
+        <h3>Oppo Reno<br>Diwali Spark</h3>
+        <p>Owned the festive conversation by showcasing Reno's camera tech through aesthetic, creator-led storytelling.</p>
+        <div class="metrics">
+          <div class="m"><div class="v" data-count="50" data-suffix="+">0</div><div class="k">Influencers</div></div>
+          <div class="m"><div class="v" data-count="12" data-suffix="M+">0</div><div class="k">Engagement</div></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="top"><span class="idx">02</span><span class="tag">Tech · Launch Sprint</span></div>
+        <h3>OnePlus &amp;<br>iQOO Sprint</h3>
+        <p>For the 15R launches we pivoted to a high-octane performance narrative, hyper-targeted at gamers and power users.</p>
+        <div class="metrics">
+          <div class="m"><div class="v">T‑7</div><div class="k">Day deployment</div></div>
+          <div class="m"><div class="v">Gaming</div><div class="k">Community focus</div></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="top"><span class="idx">03</span><span class="tag">Fintech · Acquisition</span></div>
+        <h3>Lemonn &amp; Sahi</h3>
+        <p>Turned complex stock trading into bite-sized reels for Gen-Z, building trust through finance creators and tracked links.</p>
+        <div class="metrics">
+          <div class="m"><div class="v" data-count="50" data-suffix="k+">0</div><div class="k">App installs</div></div>
+          <div class="m"><div class="v">High</div><div class="k">LTV focus</div></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="top"><span class="idx">04</span><span class="tag">Fashion · Brand Identity</span></div>
+        <h3>Oyela<br>Lookbook</h3>
+        <p>Built a visual identity through "Aesthetic Unboxing" and "Day in the Life" series — a look people wanted to belong to.</p>
+        <div class="metrics">
+          <div class="m"><div class="v" data-count="85" data-suffix="%">0</div><div class="k">Positive sentiment</div></div>
+          <div class="m"><div class="v">3.5×</div><div class="k">ROAS on ads</div></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section class="marquee">
+  <div class="marquee-label">Brands we've flown with</div>
+  <div class="track">
+    <span class="logo">OPPO Reno</span>
+    <span class="logo">OnePlus</span>
+    <span class="logo">iQOO</span>
+    <span class="logo">Lemonn<span class="sup">FIN</span></span>
+    <span class="logo">Sahi</span>
+    <span class="logo">Oyela</span>
+    <span class="logo">OPPO Reno</span>
+    <span class="logo">OnePlus</span>
+    <span class="logo">iQOO</span>
+    <span class="logo">Lemonn<span class="sup">FIN</span></span>
+    <span class="logo">Sahi</span>
+    <span class="logo">Oyela</span>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><svg class="tick" viewBox="0 0 48 54" aria-hidden="true"><use href="#jet"/></svg>What We Do</span>
+      <h2>Built to<br>move brands.</h2>
+      <p>Six things we do end-to-end — from the first creative spark to a measured sale.</p>
+    </div>
+
+    <div class="svc reveal">
+      <div class="svc-row">
+        <span class="num">01</span>
+        <h3>Influencer Strategy</h3>
+        <p>AI-driven matching across 10,000+ vetted creators, so every collaboration fits your niche and your numbers.</p>
+        <span class="arrow">→</span>
+      </div>
+      <div class="svc-row">
+        <span class="num">02</span>
+        <h3>Content &amp; Creative</h3>
+        <p>An in-house lab of scriptwriters and editors who specialise in short-form vertical video built to perform.</p>
+        <span class="arrow">→</span>
+      </div>
+      <div class="svc-row">
+        <span class="num">03</span>
+        <h3>Performance Growth</h3>
+        <p>Tracked links, retargeting and sales attribution — campaigns engineered to move people from scroll to shop.</p>
+        <span class="arrow">→</span>
+      </div>
+      <div class="svc-row">
+        <span class="num">04</span>
+        <h3>Data &amp; Insights</h3>
+        <p>Real-time dashboards, sentiment analysis and bot-follower detection so budget reaches real, engaged audiences.</p>
+        <span class="arrow">→</span>
+      </div>
+      <div class="svc-row">
+        <span class="num">05</span>
+        <h3>Campaign Management</h3>
+        <p>Capacity to run 200+ micro-influencer programs simultaneously with zero friction across every vertical.</p>
+        <span class="arrow">→</span>
+      </div>
+      <div class="svc-row">
+        <span class="num">06</span>
+        <h3>Creator Network</h3>
+        <p>Direct access to a proprietary database of elite creators, Pan-India — no hidden markup on influencer costs.</p>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS / FUNNEL -->
+<section class="section" id="process">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><svg class="tick" viewBox="0 0 48 54" aria-hidden="true"><use href="#jet"/></svg>Our Campaign Funnel</span>
+      <h2>From scroll<br>to shop.</h2>
+      <p>Every campaign is architected as a journey — each stage engineered to move the audience one step closer to action.</p>
+    </div>
+
+    <div class="funnel reveal">
+      <div class="stage">
+        <span class="step">01</span>
+        <span class="st-title">Awareness</span>
+        <span class="st-desc">Viral hook content that stops the scroll.</span>
+      </div>
+      <div class="stage">
+        <span class="step">02</span>
+        <span class="st-title">Interest</span>
+        <span class="st-desc">Deep-dive reviews that build understanding.</span>
+      </div>
+      <div class="stage">
+        <span class="step">03</span>
+        <span class="st-title">Desire</span>
+        <span class="st-desc">Social proof &amp; trends that create want.</span>
+      </div>
+      <div class="stage">
+        <span class="step">04</span>
+        <span class="st-title">Conversion</span>
+        <span class="st-desc">Link clicks &amp; sales — measured, every time.</span>
+      </div>
+    </div>
+    <p class="funnel-foot reveal">We architect the entire journey <span>from scroll to shop.</span></p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about">
+      <div class="about-copy reveal">
+        <span class="eyebrow"><svg class="tick" viewBox="0 0 48 54" aria-hidden="true"><use href="#jet"/></svg>Why brands fly with us</span>
+        <h2 style="margin-top:22px;font-size:clamp(34px,5.2vw,62px)">Young. Sharp.<br>Built to convert.</h2>
+        <p>We're not a vanity-metrics agency. We architect the whole journey — matching premium brands to the right creators with proprietary data and a tech stack built for scale.</p>
+        <p>Every reel we script, every creator we vet, every link we track has one job: turn attention into revenue you can see on a dashboard.</p>
+      </div>
+      <div class="values reveal d1">
+        <div class="val"><span class="vn">01</span><div><h4>Transparency First</h4><p>Real-time dashboard access on every live campaign. What you see is what you spend.</p></div></div>
+        <div class="val"><span class="vn">02</span><div><h4>Tech-Stack Driven</h4><p>Proprietary sentiment analysis and bot detection keep budget on real, engaged audiences.</p></div></div>
+        <div class="val"><span class="vn">03</span><div><h4>Creative Lab</h4><p>In-house writers and editors who live and breathe Reels and Shorts.</p></div></div>
+        <div class="val"><span class="vn">04</span><div><h4>Scalability</h4><p>200+ micro-influencer campaigns running at once, with zero friction.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="pass reveal">
+      <div class="pass-main">
+        <div class="pass-top">
+          <span class="tk">Boarding Pass · <b>JetPro Media</b></span>
+          <span class="tk">Flight <b>JET-2026</b></span>
+        </div>
+        <h2>Let's jet<br><em>together.</em></h2>
+        <div class="route">
+          <div class="pt from">
+            <div class="city">Your Brand</div>
+            <div class="subc">Departure</div>
+          </div>
+          <span class="plane">✈</span>
+          <div class="pt to">
+            <div class="city">Real Growth</div>
+            <div class="subc">Arrival</div>
+          </div>
+        </div>
+        <div class="pass-meta">
+          <div class="mi"><div class="k">Email</div><div class="v"><a href="mailto:info@jetpromedia.com">info@jetpromedia.com</a></div></div>
+          <div class="mi"><div class="k">Phone</div><div class="v"><a href="tel:+919335826328">+91 93358 26328</a></div></div>
+          <div class="mi"><div class="k">Coverage</div><div class="v">Pan-India</div></div>
+        </div>
+
+        <!-- CONTACT FORM -->
+        <form id="contactForm" novalidate>
+          <!-- honeypot — must stay empty -->
+          <input class="cf-honeypot" type="text" name="company_url" tabindex="-1" aria-hidden="true" autocomplete="off" />
+
+          <div class="cf-grid">
+            <div class="cf-field">
+              <label for="cf-name">Your name *</label>
+              <input type="text" id="cf-name" name="name" placeholder="Full name" required autocomplete="name" />
+            </div>
+            <div class="cf-field">
+              <label for="cf-email">Work email *</label>
+              <input type="email" id="cf-email" name="email" placeholder="you@brand.com" required autocomplete="email" />
+            </div>
+          </div>
+          <div class="cf-grid">
+            <div class="cf-field">
+              <label for="cf-brand">Brand / company</label>
+              <input type="text" id="cf-brand" name="brand" placeholder="Company name" autocomplete="organization" />
+            </div>
+            <div class="cf-field">
+              <label for="cf-budget">Campaign budget</label>
+              <select id="cf-budget" name="budget">
+                <option value="">Select a range</option>
+                <option value="Under ₹50K">Under ₹50K</option>
+                <option value="₹50K–₹2L">₹50K – ₹2L</option>
+                <option value="₹2L–₹5L">₹2L – ₹5L</option>
+                <option value="₹5L+">₹5L+</option>
+              </select>
+            </div>
+          </div>
+          <div class="cf-field">
+            <label for="cf-message">Tell us about your campaign *</label>
+            <textarea id="cf-message" name="message" rows="4" placeholder="What are you launching? Who's your audience? What's the goal?" required></textarea>
+          </div>
+
+          <div id="cf-status" role="status" aria-live="polite"></div>
+          <button type="submit" id="cf-submit" class="btn btn-pink">Book your campaign</button>
+        </form>
+      </div>
+
+      <div class="pass-stub">
+        <div>
+          <div class="slab">Gate</div>
+          <div class="gate">JET</div>
+        </div>
+        <div>
+          <div class="slab">Services</div>
+          <div class="services">
+            <span><i>›</i> Strategy</span>
+            <span><i>›</i> Content</span>
+            <span><i>›</i> Growth</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <a href="#top" class="brand"><svg class="jet" viewBox="0 0 48 54" aria-hidden="true"><use href="#jet"/></svg>JetPro Media</a>
+    <div class="meta">
+      Influencer-First Creative Agency · <a href="mailto:info@jetpromedia.com">info@jetpromedia.com</a><br>
+      Strategy · Content · Growth — © 2026 JetPro Media
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // page load reveal
+  function loaded(){document.body.classList.add('loaded');}
+  window.addEventListener('load',loaded);
+  document.addEventListener('DOMContentLoaded',loaded);
+
+  // nav scroll state
+  var nav=document.getElementById('nav');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>40)nav.classList.add('scrolled');else nav.classList.remove('scrolled');
+  },{passive:true});
+
+  // mobile toggle -> jump to contact
+  var nt=document.getElementById('navToggle');
+  if(nt)nt.addEventListener('click',function(){location.hash='#contact';});
+
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // count-up animation
+  function animateCount(el){
+    var target=parseFloat(el.dataset.count);
+    var suffix=el.dataset.suffix||'';
+    if(reduce){el.textContent=target.toLocaleString()+suffix;return;}
+    var dur=1300,start=null;
+    function step(ts){
+      if(!start)start=ts;
+      var p=Math.min((ts-start)/dur,1);
+      var eased=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*eased).toLocaleString()+suffix;
+      if(p<1)requestAnimationFrame(step);
+      else el.textContent=target.toLocaleString()+suffix;
+    }
+    requestAnimationFrame(step);
+  }
+
+  // scroll reveal + counters
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting)return;
+      e.target.classList.add('in');
+      e.target.querySelectorAll('[data-count]').forEach(animateCount);
+      io.unobserve(e.target);
+    });
+  },{threshold:.16});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // ---------- contact form ----------
+  var form=document.getElementById('contactForm');
+  if(!form)return;
+
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    var btn=document.getElementById('cf-submit');
+    var status=document.getElementById('cf-status');
+
+    status.textContent='';
+    status.className='';
+    btn.disabled=true;
+    btn.textContent='Sending…';
+
+    var body={
+      name:    form.elements['name'].value.trim(),
+      email:   form.elements['email'].value.trim(),
+      brand:   form.elements['brand'].value.trim(),
+      budget:  form.elements['budget'].value,
+      message: form.elements['message'].value.trim(),
+      company_url: form.elements['company_url'].value, // honeypot
+    };
+
+    try{
+      var res=await fetch('/api/contact',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(body),
+      });
+      var json=await res.json();
+      if(json.ok){
+        status.textContent='Cleared for takeoff — we\'ll be in touch within one business day.';
+        status.className='ok';
+        form.reset();
+      }else{
+        status.textContent=json.error||'Something went wrong. Please try again.';
+        status.className='err';
+      }
+    }catch(err){
+      status.textContent='Network error. Email us directly at info@jetpromedia.com.';
+      status.className='err';
+    }finally{
+      btn.disabled=false;
+      btn.textContent='Book your campaign';
+    }
+  });
+})();
+</script>
+</body>
+</html>

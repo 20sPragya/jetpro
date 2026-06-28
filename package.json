@@ -1,0 +1,20 @@
+{
+  "name": "jetpro-media-backend",
+  "version": "1.0.0",
+  "description": "Express backend for the JetPro Media site — serves the static site and handles campaign enquiries by email.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "nodemailer": "^6.9.14"
+  }
+}
