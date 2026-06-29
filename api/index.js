@@ -7,8 +7,8 @@ const express = require('express');
 const helmet  = require('helmet');
 const rateLimit = require('express-rate-limit');
 
-const { validateLead }             = require('../src/validate');
-const { sendEnquiry, verifyTransport } = require('../src/mailer');
+const { validateLead }             = require('./validate');
+const { sendEnquiry, verifyTransport } = require('./mailer');
 
 const app = express();
 
